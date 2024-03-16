@@ -16,6 +16,7 @@ const gameState = {
   bullets: [],
   aliens: [],
   cannon: null,
+  canvas: null
 };
 const inputHandler = new InputHandler();
 
@@ -51,6 +52,8 @@ export function init(canvas) {
 			gameState.aliens.push(
         new Alien(alienX, alienY, sprites.aliens[alienType])
 			);
+
+      gameState.canvas = canvas
 		}
 	}
 
@@ -75,7 +78,21 @@ export function update(time, stopGame) {
 		gameState.bullets.push(new Bullet(bulletX, bulletY, -8, 2, 6, "#fff"));
 	}
 
-  gameState.bullets.forEach(b => b.update(time));
+  gameState.aliens.forEach((a, j) => {
+    gameState.bullets.find((b, i) => {
+      if(a.contains(b)) {
+        gameState.aliens.splice(j, 1)
+        gameState.bullets.splice(i, 1)
+        return true
+      }
+      return false
+    })
+  });
+
+  gameState.bullets.forEach((b, i) => {
+    if(b.x < 0 || b.y < 0 || b.x > gameState.canvas.width || b.y > gameState.canvas.height) gameState.bullets.splice(i, 1)
+    else b.update(time)
+  });
 }
 
 export function draw(canvas, time) {

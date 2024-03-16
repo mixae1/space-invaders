@@ -1,9 +1,13 @@
-export default class Alien {
+import gameObject from "./game-object";
+
+export default class Alien extends gameObject{
   constructor(x, y, [spriteA, spriteB]) {
+    super()
     this.x = x;
   	this.y = y;
     this._spriteA = spriteA;
     this._spriteB = spriteB;
+    this.r = spriteA.w / 2;
   }
 
   draw(ctx, time) {
