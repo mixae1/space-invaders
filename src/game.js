@@ -15,6 +15,9 @@ const sprites = {
 const gameState = {
   bullets: [],
   aliens: [],
+  aliens_dx: 3,
+  aliens_left: 0,
+  aliens_right: 330,
   cannon: null,
   canvas: null
 };
@@ -90,6 +93,29 @@ export function update(time, stopGame) {
       return false
     })
   });
+
+  
+  let delta = 0;
+  if(gameState.aliens_left < 0) {
+    delta = -gameState.aliens_left;
+    gameState.aliens_right += delta;
+    gameState.aliens_left += delta;
+    gameState.aliens_dx = Math.abs(gameState.aliens_dx);
+  }
+  else if(gameState.aliens_right > gameState.canvas.width) {
+    delta = gameState.canvas.width - gameState.aliens_right;
+    gameState.aliens_right += delta;
+    gameState.aliens_left += delta;
+    gameState.aliens_dx = -Math.abs(gameState.aliens_dx);
+  }
+  else {
+    if(Math.random() > 0.98) gameState.aliens_dx *= -1;
+    gameState.aliens_right += gameState.aliens_dx;
+    gameState.aliens_left += gameState.aliens_dx;
+    delta += gameState.aliens_dx
+  }
+
+  gameState.aliens.forEach(a => a.x += delta);
 
   gameState.bullets.forEach((b, i) => {
     if(b.x < 0 || b.y < 0 || b.x > gameState.canvas.width || b.y > gameState.canvas.height) gameState.bullets.splice(i, 1)
