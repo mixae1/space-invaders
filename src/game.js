@@ -66,10 +66,12 @@ export function init(canvas) {
 export function update(time, stopGame) {
 	if (inputHandler.isDown('ArrowLeft')) {
 		gameState.cannon.x -= 4;
+    if(gameState.cannon.x < 0) gameState.cannon.x = 0
 	}
 
 	if (inputHandler.isDown('ArrowRight')) {
 		gameState.cannon.x += 4;
+    if(gameState.cannon.x + gameState.cannon.width > gameState.canvas.width) gameState.cannon.x = gameState.canvas.width - gameState.cannon.width
 	}
 
   if (inputHandler.isPressed('Space')) {

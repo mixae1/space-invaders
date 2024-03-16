@@ -5,6 +5,10 @@ export default class Cannon {
     this._sprite = sprite;
   }
 
+  get width(){
+    return this._sprite.w
+  }
+
   draw(ctx, time) {
     ctx.drawImage(
       this._sprite.img,
