@@ -705,6 +705,8 @@ function restart() {
     gameState.superMode = null;
     gameState.PAUSE = false;
     gameState.ENDGAME = 0;
+    gameState.aliens_left = 0;
+    gameState.aliens_right = 440;
     init(gameState.canvas);
 }
 function update(time, stopGame) {

@@ -88,6 +88,8 @@ function restart(){
   gameState.superMode = null
   gameState.PAUSE = false
   gameState.ENDGAME = 0
+  gameState.aliens_left = 0
+  gameState.aliens_right = 11 * 40
 
   init(gameState.canvas)
 }
