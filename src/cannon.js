@@ -1,8 +1,13 @@
-export default class Cannon {
+import gameObject from "./game-object";
+
+export default class Cannon extends gameObject {
   constructor(x, y, sprite) {
+    super()
     this.x = x;
   	this.y = y;
+    this.r = sprite.w / 2;
     this._sprite = sprite;
+    this.lives = 3;
   }
 
   get width(){
